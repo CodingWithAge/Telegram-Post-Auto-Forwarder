@@ -48,7 +48,7 @@ def print_startup_banner():
 
 
 # Replace with your actual Telegram user IDs
-ALLOWED_USERS = {7065157618}
+ALLOWED_USERS = {}
 
 API_ID, API_HASH, SESSION_NAME, SRC, DST = range(5)
 
