@@ -1,0 +1,101 @@
+
+
+==============================
+Telegram Forwarder Bot — Setup Guide
+==============================
+
+This project is a secure, production-ready Telegram bot that lets you configure and control a multi-account Telethon message forwarder entirely from Telegram. It also includes a separate log bot for activity reporting.
+
+---
+
+## 1. Clone & Install Dependencies
+
+Open a terminal in your project directory and run:
+    pip install -r requirements.txt
+
+---
+
+## 2. Configure Your Bot Tokens and Secrets
+
+- Copy `.env.example` to `.env` (if not already present):
+      cp .env.example .env
+- Edit `.env` and fill in:
+      TELEGRAM_BOT_TOKEN=your_main_bot_token_here
+      LOG_BOT_API_TOKEN=your_log_bot_token_here
+      LOG_BOT_TARGET_CHAT_ID=your_log_bot_chat_id_here
+- Your tokens and secrets are now loaded automatically and kept out of your codebase.
+
+---
+
+## 3. Set Your Telegram User ID
+
+- Edit `bot.py` and set your Telegram user ID in `ALLOWED_USERS`:
+      ALLOWED_USERS = {123456789}
+  (Get your user ID from @userinfobot on Telegram.)
+
+---
+
+## 4. Start the Bot
+
+Run:
+    python bot.py
+
+---
+
+## 5. Configure and Control via Telegram
+
+- Open Telegram and start a chat with your bot.
+- Type `/start` to see the setup and help menu.
+
+### Main Commands
+
+- `/add_account <api_id> <api_hash> <session_name>` — Add a Telethon account for forwarding
+- `/remove_account <session_name>` — Remove a forwarder account
+- `/list_accounts` — List all configured accounts
+- `/set_source <channel>` — Set the source channel (username or ID)
+- `/add_destination <channel>` — Add a destination channel
+- `/remove_destination <channel>` — Remove a destination channel
+- `/list_destinations` — List all destination channels
+- `/start_forwarder` — Start forwarding messages
+- `/stop_forwarder` — Stop forwarding
+- `/pause_forwarder` — Pause forwarding
+- `/resume_forwarder` — Resume forwarding
+- `/status` — Show current status
+- `/set_interval <minutes>` — Set how often to forward (in minutes)
+- `/show_config` — Show current config (safe, no secrets)
+- `/reset_config` — Reset all settings
+- `/export_config` — Export your config file
+- `/import_config` — Import a config file (send as document)
+- `/set_config <key> <value>` — Set a config key (advanced)
+- `/cancel` — Cancel current operation
+
+---
+
+## 6. Logging Bot
+
+- The log bot sends activity and error logs to a separate Telegram chat.
+- Configure `LOG_BOT_API_TOKEN` and `LOG_BOT_TARGET_CHAT_ID` in your `.env` file.
+- Logs include uncensored group names, username, and API ID (with Telegram spoiler formatting).
+
+---
+
+## 7. Usage Notes
+
+- All configuration and management is done via Telegram commands—no manual file editing needed after setup.
+- Only users in `ALLOWED_USERS` can control the bot.
+- You can add multiple Telethon accounts to rotate and avoid rate limits.
+- All settings can be changed live, without restarting the bot.
+- All sensitive data is stored securely and never exposed.
+- The `.env`, `.env.*`, and `venv/` folders are ignored by git for security.
+
+---
+
+## 8. Troubleshooting
+
+- If you see "Access denied", make sure your Telegram user ID is in `ALLOWED_USERS`.
+- If you get errors about missing config, use `/start` and follow the prompts.
+- If you encounter any issues, note the error message and step, then ask for help.
+
+---
+
+Enjoy your secure, flexible Telegram forwarder bot with logging!
